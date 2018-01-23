@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <title>GHAR contact list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <style type="text/css">
         body {
             margin-top: 20px;
@@ -71,10 +72,26 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">GHAR Quick</a>
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-            <ul class="nav navbar-nav">
-                <li><a href="https://ajpughbutchers.wixsite.com/ghar/tutorials">Tutorials</a></li>
-            </ul>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="https://ajpughbutchers.wixsite.com/ghar">Website</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="https://ajpughbutchers.wixsite.com/ghar/tutorials">Tutorials</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="https://vikcalc.com">Gear Calculator</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -185,15 +202,67 @@
             </div>
         </div>
 
+        <div class="col-sm-6">
+            <div class="panel">
+                <div class="panel-body p-t-10">
+                    <div class="media-main">
+                        <a class="pull-left" href="https://www.facebook.com/messages/t/bogdanradu22">
+                            <img class="thumb-lg img-circle bx-s" src="https://cdn01.x-plarium.com/browser/content/portal/vikings/avatars/8.jpg" alt="">
+                        </a>
+                        <div class="info">
+                            <h4>Tredy22</h4>
+                            <p class="text-muted">Elder</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <ul class="social-links list-inline p-b-10">
+                        <li>
+                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/bogdanradu22" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/messages/t/bogdanradu22" data-original-title="Message"><i
+                                    class="fa fa-envelope-o"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="panel">
+                <div class="panel-body p-t-10">
+                    <div class="media-main">
+                        <a class="pull-left" href="https://www.facebook.com/messages/t/csholer">
+                            <img class="thumb-lg img-circle bx-s" src="https://cdn01.x-plarium.com/browser/content/portal/vikings/avatars/7.jpg" alt="">
+                        </a>
+                        <div class="info">
+                            <h4>Hoskuld Gunnarsson</h4>
+                            <p class="text-muted">Elder</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <ul class="social-links list-inline p-b-10">
+                        <li>
+                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/csholer" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/messages/t/csholer" data-original-title="Message"><i
+                                    class="fa fa-envelope-o"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $(function () {
     $("a[data-toggle='tooltip']").tooltip();
   });
-
 </script>
 </body>
 </html>
