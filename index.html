@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>GHAR contact list</title>
+    <title>GHAR</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -62,6 +62,10 @@
             -webkit-border-radius: 50%;
             color: #7A7676;
         }
+
+        .color_18 {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +75,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">GHAR Quick</a>
+                <a id="home" class="navbar-brand" href="#">GHAR</a>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -84,14 +88,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="https://ajpughbutchers.wixsite.com/ghar">Website</a></li>
-                </ul>
-                <ul class="nav navbar-nav">
-                    <li><a href="https://ajpughbutchers.wixsite.com/ghar/tutorials">Tutorials</a></li>
-                </ul>
-                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tutorials
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu" id="tutorials">
+                        </ul>
+                    </li>
+
                     <li><a href="https://vikcalc.com">Gear Calculator</a></li>
-                </ul>
-                <ul class="nav navbar-nav">
+
                     <li>
                         <a data-toggle="modal" data-target="#modal-join-fb-chat">Join FB chat</a>
                     </li>
@@ -101,7 +107,7 @@
         </div>
     </nav>
 
-    <div class="row">
+    <div class="row" id="main">
 
         <div class="col-sm-6">
             <div class="panel">
@@ -289,9 +295,61 @@
 </div>
 
 <script type="text/javascript">
-  $(function () {
-    $("a[data-toggle='tooltip']").tooltip();
-  });
+    $(function () {
+        $("a[data-toggle='tooltip']").tooltip();
+    });
+
+    $(document).ready(function () {
+
+        const main = $('#main');
+        const contacts = main.html();
+
+        $('#home').click(() => main.html(contacts));
+
+        $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://ajpughbutchers.wixsite.com/ghar/tutorials/?_escaped_fragment_=comp-j81ii9j2inlineContent') + '&callback=?', function (data) {
+            const d = $(data.contents);
+
+            const links = d.find('#comp-j81ii9j2').find('a');
+
+            const tutorials = $('#tutorials');
+
+            links.each((k, v) => {
+
+                const url = v.href + '/?_escaped_fragment_=txtNew';
+
+                const element = $('<li><a>' + v.text + '</a></li>');
+
+                const contentLoader = (content) => main.html(
+                    '<div class="col-sm-12">\n' +
+                    '            <div class="panel">\n' +
+                    '                <div class="panel-body p-t-10">\n' +
+                    content +
+                    '                \n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '        </div>'
+                );
+
+                element.click(() => {
+
+                    $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
+                        const content = $(data.contents);
+
+                        content.each((k, v) => {
+                            const vjq = $(v);
+
+                            if (vjq.hasClass('page')) {
+                                contentLoader(vjq.html());
+                            }
+                        });
+                    });
+
+                });
+
+                tutorials.append(element);
+            });
+        });
+    });
 </script>
 </body>
 </html>
