@@ -312,18 +312,7 @@
         $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://ajpughbutchers.wixsite.com/ghar/tutorials/?_escaped_fragment_=') + '&callback=?', function (data) {
             const d = $(data.contents);
 
-            let links = null;
-
-            d.each((k, v) => {
-                if ($(v).hasClass('strc1inlineContent')) {
-                    links = $(v).find('a');
-                }
-            });
-
-            if (links === null) {
-                console.warn('Failed to parse tutorials.');
-                return;
-            }
+            const links = d.find('#comp-j81ii9j2').find('a');
 
             const tutorials = $('#tutorials');
 
