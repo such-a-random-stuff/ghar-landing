@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>GHAR</title>
+    <title>GHAR - The Great Heathen Army - Vikings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="pbVf1GKTYqCwxPPSbx7Gufn8DD23aNCnRXTmH4uaEVE" />
+    <meta name="description" content="Site of The Great Heathen Army clan from Vikings: War of Clans game. You can find useful tutorials and elder's contacts here.">
+    <meta name="keywords" content="vikings, war of clans, ghar, tutorials, hyper farm, invaders, clan">
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -306,16 +309,27 @@
 
         $('#home').click(() => main.html(contacts));
 
-        $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://ajpughbutchers.wixsite.com/ghar/tutorials/?_escaped_fragment_=comp-j81ii9j2inlineContent') + '&callback=?', function (data) {
+        $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://ajpughbutchers.wixsite.com/ghar/tutorials/?_escaped_fragment_=') + '&callback=?', function (data) {
             const d = $(data.contents);
 
-            const links = d.find('#comp-j81ii9j2').find('a');
+            let links = null;
+
+            d.each((k, v) => {
+                if ($(v).hasClass('strc1inlineContent')) {
+                    links = $(v).find('a');
+                }
+            });
+
+            if (links === null) {
+                console.warn('Failed to parse tutorials.');
+                return;
+            }
 
             const tutorials = $('#tutorials');
 
             links.each((k, v) => {
 
-                const url = v.href + '/?_escaped_fragment_=txtNew';
+                const url = v.href + '/?_escaped_fragment_=';
 
                 const element = $('<li><a>' + v.text + '</a></li>');
 
