@@ -316,38 +316,46 @@
 
             const tutorials = $('#tutorials');
 
+            const contentLoader = (content, f) => main[f](
+                '<div class="col-sm-12">\n' +
+                '            <div class="panel">\n' +
+                '                <div class="panel-body p-t-10">\n' +
+                content +
+                '                \n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>'
+            );
+
+            const display = (f, url) => {
+
+                $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
+                    const content = $(data.contents);
+
+                    content.each((k, v) => {
+                        const vjq = $(v);
+
+                        if (vjq.hasClass('page')) {
+                            contentLoader(vjq.html(), f);
+                        }
+                    });
+                });
+
+            };
+
+            const isCrawl = location.search.indexOf('_escaped_fragment_') !== -1;
+
             links.each((k, v) => {
 
                 const url = v.href + '/?_escaped_fragment_=';
 
                 const element = $('<li><a>' + v.text + '</a></li>');
 
-                const contentLoader = (content) => main.html(
-                    '<div class="col-sm-12">\n' +
-                    '            <div class="panel">\n' +
-                    '                <div class="panel-body p-t-10">\n' +
-                    content +
-                    '                \n' +
-                    '                </div>\n' +
-                    '            </div>\n' +
-                    '        </div>'
-                );
+                element.click(() => display('html', url));
 
-                element.click(() => {
-
-                    $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
-                        const content = $(data.contents);
-
-                        content.each((k, v) => {
-                            const vjq = $(v);
-
-                            if (vjq.hasClass('page')) {
-                                contentLoader(vjq.html());
-                            }
-                        });
-                    });
-
-                });
+                if (isCrawl) {
+                    display('prepend', url);
+                }
 
                 tutorials.append(element);
             });
