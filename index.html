@@ -305,7 +305,9 @@
 
     $(document).ready(function () {
 
-        const router = new Navigo(null, false);
+        console.log(location);
+
+        const router = new Navigo('http://ghar.loc', true, '#!');
 
         const main = $('#main');
         const contacts = main.html();
@@ -352,7 +354,7 @@
                 const route = v.href.split('/').pop();
                 const url = v.href + '/?_escaped_fragment_=';
 
-                router.on('/' + route, () => display('html', url, v.text));
+                router.on(route, () => display('html', url, v.text));
 
                 const element = $('<li><a href="' + route + '" data-navigo>' + v.text + '</a></li>');
 
@@ -360,6 +362,16 @@
             });
 
             router.updatePageLinks();
+
+            router.hooks({
+                after: () => location.hash = location.hash.replace('#!/', '#!')
+            });
+
+            if (location.hash.length > 2) {
+                console.log('suka');
+                const route = '/' + location.hash.split('!').pop();
+                router.navigate(route);
+            }
         });
     });
 </script>
