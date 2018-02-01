@@ -305,7 +305,7 @@
 
     $(document).ready(function () {
 
-        const router = new Navigo(null, true, '#!');
+        const router = new Navigo(null, false);
 
         const main = $('#main');
         const contacts = main.html();
@@ -327,12 +327,7 @@
                 '                \n' +
                 '                </div>\n' +
                 '            </div>\n' +
-                '        </div>' +
-                '<script type="application/ld+json">' +
-                '{' +
-                '"@type"' +
-                '}' +
-                '<\/script>'
+                '        </div>'
             );
 
             const display = (f, url, title) => {
