@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <title>GHAR - The Great Heathen Army - Vikings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="pbVf1GKTYqCwxPPSbx7Gufn8DD23aNCnRXTmH4uaEVE" />
+    <meta name="google-site-verification" content="pbVf1GKTYqCwxPPSbx7Gufn8DD23aNCnRXTmH4uaEVE"/>
     <meta name="description" content="Site of The Great Heathen Army clan from Vikings: War of Clans game. You can find useful tutorials and elder's contacts here.">
     <meta name="keywords" content="vikings, war of clans, ghar, tutorials, hyper farm, invaders, clan">
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/krasimir/navigo/2c96ce1b/lib/navigo.min.js"></script>
     <style type="text/css">
         body {
             margin-top: 20px;
@@ -78,7 +79,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a id="home" class="navbar-brand" href="#">GHAR</a>
+                <a id="home" class="navbar-brand" href="/" data-navigo>GHAR</a>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -304,10 +305,12 @@
 
     $(document).ready(function () {
 
+        const router = new Navigo(null, false);
+
         const main = $('#main');
         const contacts = main.html();
 
-        $('#home').click(() => main.html(contacts));
+        router.on(() => main.html(contacts)).resolve();
 
         $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://ajpughbutchers.wixsite.com/ghar/tutorials/?_escaped_fragment_=') + '&callback=?', function (data) {
             const d = $(data.contents);
@@ -324,10 +327,15 @@
                 '                \n' +
                 '                </div>\n' +
                 '            </div>\n' +
-                '        </div>'
+                '        </div>' +
+                '<script type="application/ld+json">' +
+                '{' +
+                '"@type"' +
+                '}' +
+                '<\/script>'
             );
 
-            const display = (f, url) => {
+            const display = (f, url, title) => {
 
                 $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
                     const content = $(data.contents);
@@ -343,22 +351,20 @@
 
             };
 
-            const isCrawl = location.search.indexOf('_escaped_fragment_') !== -1;
 
             links.each((k, v) => {
 
+                const route = v.href.split('/').pop();
                 const url = v.href + '/?_escaped_fragment_=';
 
-                const element = $('<li><a>' + v.text + '</a></li>');
+                router.on('/' + route, () => display('html', url, v.text));
 
-                element.click(() => display('html', url));
-
-                if (isCrawl) {
-                    display('prepend', url);
-                }
+                const element = $('<li><a href="' + route + '" data-navigo>' + v.text + '</a></li>');
 
                 tutorials.append(element);
             });
+
+            router.updatePageLinks();
         });
     });
 </script>
