@@ -71,6 +71,83 @@
             font-weight: bold;
         }
     </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(function () {
+                $("a[data-toggle='tooltip']").tooltip();
+            });
+
+            const router = new Navigo('http://ghar.loc', true, '#!');
+
+            const main = $('#main');
+            const contacts = main.html();
+
+            router.on(() => main.html(contacts));
+
+            $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://ajpughbutchers.wixsite.com/ghar/tutorials/?_escaped_fragment_=') + '&callback=?', function (data) {
+                const d = $(data.contents);
+
+                const links = d.find('#comp-j81ii9j2').find('a');
+
+                const tutorials = $('#tutorials');
+
+                const contentLoader = (content, f) => main[f](
+                    '<div class="col-sm-12">\n' +
+                    '            <div class="panel">\n' +
+                    '                <div class="panel-body p-t-10">\n' +
+                    content +
+                    '                \n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '        </div>'
+                );
+
+                const display = (f, url, title) => {
+
+                    $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
+                        const content = $(data.contents);
+
+                        content.each((k, v) => {
+                            const vjq = $(v);
+
+                            if (vjq.hasClass('page')) {
+                                contentLoader(vjq.html(), f);
+                            }
+                        });
+                    });
+
+                };
+
+
+                links.each((k, v) => {
+
+                    const route = v.href.split('/').pop();
+                    const url = v.href + '/?_escaped_fragment_=';
+
+                    router.on(route, () => display('html', url, v.text));
+
+                    const element = $('<li><a href="' + route + '" data-navigo>' + v.text + '</a></li>');
+
+                    tutorials.append(element);
+                });
+
+                router.updatePageLinks();
+
+                router.hooks({
+                    after: () => location.hash = location.hash.replace('#!/', '#!')
+                });
+
+                if (location.hash.length > 2) {
+                    console.log('suka');
+                    const route = '/' + location.hash.split('!').pop();
+                    router.navigate(route);
+                }
+            });
+        });
+    </script>
+
 </head>
 <body>
 
@@ -143,32 +220,6 @@
             <div class="panel">
                 <div class="panel-body p-t-10">
                     <div class="media-main">
-                        <a class="pull-left" href="https://m.me/1085602133">
-                            <img class="thumb-lg img-circle bx-s" src="https://cdn01.x-plarium.com/browser/content/portal/vikings/avatars/11.jpg" alt="">
-                        </a>
-                        <div class="info">
-                            <h4>Drumania</h4>
-                            <p class="text-muted">Recruiter</p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <hr>
-                    <ul class="social-links list-inline p-b-10">
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/1085602133" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://m.me/1085602133" data-original-title="Message"><i class="fa fa-envelope-o"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="panel">
-                <div class="panel-body p-t-10">
-                    <div class="media-main">
                         <a class="pull-left" href="https://m.me/0x1A5p">
                             <img class="thumb-lg img-circle bx-s" src="https://cdn01.x-plarium.com/browser/content/portal/vikings/avatars/8.jpg" alt="">
                         </a>
@@ -185,87 +236,6 @@
                         </li>
                         <li>
                             <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://m.me/0x1A5p" data-original-title="Message"><i class="fa fa-envelope-o"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="panel">
-                <div class="panel-body p-t-10">
-                    <div class="media-main">
-                        <a class="pull-left" href="https://m.me/thomas.pugh.3158">
-                            <img class="thumb-lg img-circle bx-s" src="https://cdn01.x-plarium.com/browser/content/portal/vikings/avatars/11.jpg" alt="">
-                        </a>
-                        <div class="info">
-                            <h4>666TheMyth</h4>
-                            <p class="text-muted">Blacksmith</p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <hr>
-                    <ul class="social-links list-inline p-b-10">
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/thomas.pugh.3158" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://m.me/thomas.pugh.3158" data-original-title="Message"><i
-                                    class="fa fa-envelope-o"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="panel">
-                <div class="panel-body p-t-10">
-                    <div class="media-main">
-                        <a class="pull-left" href="https://m.me/bogdanradu22">
-                            <img class="thumb-lg img-circle bx-s" src="https://cdn01.x-plarium.com/browser/content/portal/vikings/avatars/8.jpg" alt="">
-                        </a>
-                        <div class="info">
-                            <h4>Tredy22</h4>
-                            <p class="text-muted">Elder</p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <hr>
-                    <ul class="social-links list-inline p-b-10">
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/bogdanradu22" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://m.me/bogdanradu22" data-original-title="Message"><i
-                                    class="fa fa-envelope-o"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="panel">
-                <div class="panel-body p-t-10">
-                    <div class="media-main">
-                        <a class="pull-left" href="https://m.me/csholer">
-                            <img class="thumb-lg img-circle bx-s" src="https://cdn01.x-plarium.com/browser/content/portal/vikings/avatars/7.jpg" alt="">
-                        </a>
-                        <div class="info">
-                            <h4>Hoskuld Gunnarsson</h4>
-                            <p class="text-muted">Elder</p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <hr>
-                    <ul class="social-links list-inline p-b-10">
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://www.facebook.com/csholer" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="https://m.me/csholer" data-original-title="Message"><i
-                                    class="fa fa-envelope-o"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -297,83 +267,5 @@
 
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        $("a[data-toggle='tooltip']").tooltip();
-    });
-
-    $(document).ready(function () {
-
-        console.log(location);
-
-        const router = new Navigo('http://ghar.ml', true, '#!');
-
-        const main = $('#main');
-        const contacts = main.html();
-
-        router.on(() => main.html(contacts)).resolve();
-
-        $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://ajpughbutchers.wixsite.com/ghar/tutorials/?_escaped_fragment_=') + '&callback=?', function (data) {
-            const d = $(data.contents);
-
-            const links = d.find('#comp-j81ii9j2').find('a');
-
-            const tutorials = $('#tutorials');
-
-            const contentLoader = (content, f) => main[f](
-                '<div class="col-sm-12">\n' +
-                '            <div class="panel">\n' +
-                '                <div class="panel-body p-t-10">\n' +
-                content +
-                '                \n' +
-                '                </div>\n' +
-                '            </div>\n' +
-                '        </div>'
-            );
-
-            const display = (f, url, title) => {
-
-                $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
-                    const content = $(data.contents);
-
-                    content.each((k, v) => {
-                        const vjq = $(v);
-
-                        if (vjq.hasClass('page')) {
-                            contentLoader(vjq.html(), f);
-                        }
-                    });
-                });
-
-            };
-
-
-            links.each((k, v) => {
-
-                const route = v.href.split('/').pop();
-                const url = v.href + '/?_escaped_fragment_=';
-
-                router.on(route, () => display('html', url, v.text));
-
-                const element = $('<li><a href="' + route + '" data-navigo>' + v.text + '</a></li>');
-
-                tutorials.append(element);
-            });
-
-            router.updatePageLinks();
-
-            router.hooks({
-                after: () => location.hash = location.hash.replace('#!/', '#!')
-            });
-
-            if (location.hash.length > 2) {
-                console.log('suka');
-                const route = '/' + location.hash.split('!').pop();
-                router.navigate(route);
-            }
-        });
-    });
-</script>
 </body>
 </html>
