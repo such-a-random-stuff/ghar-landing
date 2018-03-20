@@ -8,7 +8,7 @@
     <meta name="description" content="Site of The Great Heathen Army clan from Vikings: War of Clans game. You can find useful tutorials and elder's contacts here.">
     <meta name="keywords" content="vikings, war of clans, ghar, tutorials, hyper farm, invaders, clan">
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdn.rawgit.com/krasimir/navigo/2c96ce1b/lib/navigo.min.js"></script>
@@ -79,7 +79,7 @@
                 $("a[data-toggle='tooltip']").tooltip();
             });
 
-            const router = new Navigo('http://ghar.loc', true, '#!');
+            const router = new Navigo('http://ghar.ml', true, '#!');
 
             const main = $('#main');
             const contacts = main.html();
@@ -106,7 +106,7 @@
 
                 const display = (f, url, title) => {
 
-                    $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
+                    $.getJSON('https://allorigins.me/get?url=' + encodeURIComponent(url) + '&callback=?', function (data) {
                         const content = $(data.contents);
 
                         content.each((k, v) => {
@@ -150,7 +150,6 @@
 
 </head>
 <body>
-
 
 <div class="container bootstrap snippet">
     <nav class="navbar navbar-inverse">
